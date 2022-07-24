@@ -3,7 +3,7 @@ using namespace std;
 
 int transfer(int byte, short radix) {
     int res = 0, k = 1;
-    for (short i = 0; byte != 0; ++i) { res += (byte % radix) * k; k *= 10; byte /= radix; }
+    for (int i = 0; byte != 0; ++i) { res += (byte % radix) * k; k *= 10; byte /= radix; }
     return res;
 }
 
@@ -15,10 +15,13 @@ int formout(int out) {
 }
 
 int fastpow(int a, int n) {
-    if (n == 0) return 1;
-    if (n % 2 == 1) return (a * fastpow(a, n - 1));
-    int tmp = fastpow(a, n / 2);
-    return (tmp * tmp);
+    int res = 1;
+    while (n) {
+        if (n % 2) res *= a;
+        a *= a;
+        n >>= 1;
+    }
+    return res;
 }
 
 void Info(int* byte) {
